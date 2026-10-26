@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Ultimate Wine Guide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --bg: #faf6f1;
+  --surface: #ffffff;
+  --surface-hover: #fcf9f5;
+  --text: #2a1a1f;
+  --muted: #6d5a60;
+  --accent: #7b1e3a;
+  --accent-light: #9c2b4e;
+  --accent2: #c9a24b;
+  --line: #e6dcd3;
+  --card-shadow: 0 10px 25px -5px rgba(123, 30, 58, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #140d10;
+    --surface: #1e1317;
+    --surface-hover: #26191f;
+    --text: #f3e9e4;
+    --muted: #b9a5a9;
+    --accent: #e0768f;
+    --accent-light: #f095ab;
+    --accent2: #d9b45c;
+    --line: #322228;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #140d10;
+  --surface: #1e1317;
+  --surface-hover: #26191f;
+  --text: #f3e9e4;
+  --muted: #b9a5a9;
+  --accent: #e0768f;
+  --accent-light: #f095ab;
+  --accent2: #d9b45c;
+  --line: #322228;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #faf6f1;
+  --surface: #ffffff;
+  --surface-hover: #fcf9f5;
+  --text: #2a1a1f;
+  --muted: #6d5a60;
+  --accent: #7b1e3a;
+  --accent-light: #9c2b4e;
+  --accent2: #c9a24b;
+  --line: #e6dcd3;
+  --card-shadow: 0 10px 25px -5px rgba(123, 30, 58, 0.05);
+  color-scheme: light;
+}
+
+html {
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism Navigation */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+nav a {
+  color: var(--muted);
+  transition: all 0.2s ease;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent);
+}
+
+/* Hero Section */
+.hero-wrapper {
+  position: relative;
+  background-image: linear-gradient(to bottom, rgba(20, 13, 16, 0.65), rgba(20, 13, 16, 0.85)), 
+                    url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=1920&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 35%;
+  color: #ffffff;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Card Styling & Hover Zoom */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.15);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+.card-img-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* 5:3 Aspect Ratio */
+  overflow: hidden;
+  background-color: var(--line);
+}
+
+.card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .card-img {
+  transform: scale(1.08);
+}
+
+.card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Tags */
+.tag {
+  display: inline-block;
+  font: 600 0.7rem system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  width: fit-content;
+}
+
+/* Section Titles */
+section > h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+section > h2::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent2), transparent);
+  border-radius: 2px;
+}
+
+/* Filters */
+.filter-btn {
+  font: 600 0.85rem system-ui, sans-serif;
+  padding: 0.5rem 1.25rem;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(123, 30, 58, 0.25);
+}
+
+/* Tables */
+.table-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  font: 600 0.75rem system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Steps list */
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Region Cards Grid */
+.region-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 220px;
+  box-shadow: var(--card-shadow);
+}
+
+.region-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.region-card:hover img {
+  transform: scale(1.1);
+}
+
+.region-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  color: #ffffff;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 99px;
+  padding: 0.4rem 0.8rem;
+  font: 600 0.8rem system-ui, sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+</style>
+</head>
+<body>
+
+<!-- Sticky Navigation -->
+<nav class="px-4 py-3">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <a href="#" class="font-bold text-lg tracking-tight text-[var(--accent)] flex items-center gap-2">
+      <svg class="w-6 h-6 inline-block" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c-1.1 0-2 .9-2 2v6.17C8.16 10.74 7 12.72 7 15c0 3.87 3.13 7 7 7s7-3.13 7-7c0-2.28-1.16-4.26-3-4.83V4c0-1.1-.9-2-2-2h-4zm0 2h4v5h-4V4zm2 9c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5z"/></svg>
+      The Wine Guide
+    </a>
+    <div class="flex items-center gap-6 overflow-x-auto py-1 scrollbar-none">
+      <a href="#types" class="text-sm font-semibold">Types</a>
+      <a href="#grapes" class="text-sm font-semibold">Grapes</a>
+      <a href="#regions" class="text-sm font-semibold">Regions</a>
+      <a href="#tasting" class="text-sm font-semibold">Tasting</a>
+      <a href="#pairing" class="text-sm font-semibold">Pairing</a>
+      <a href="#serving" class="text-sm font-semibold">Serving</a>
+      <a href="#glossary" class="text-sm font-semibold">Glossary</a>
+      <button id="themeToggle" class="theme-toggle ml-2" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Banner -->
+<header class="hero-wrapper py-24 px-4 text-center">
+  <div class="max-w-3xl mx-auto">
+    <span class="inline-block uppercase tracking-widest text-xs font-sans font-semibold text-[var(--accent2)] mb-3 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">The Essential Connoisseur Handbook</span>
+    <h1 class="hero-title font-serif mb-4">The Wine Guide</h1>
+    <p class="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
+      Discover the world's finest styles, classic grape varieties, iconic regions, art of tasting, and perfect culinary pairings.
+    </p>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-16">
+
+  <!-- TYPES OF WINE -->
+  <section id="types">
+    <div class="mb-6">
+      <h2>Types of Wine</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Wine is fermented grape juice. Colour, sweetness, and effervescence come from how grapes are pressed, skin contact duration, and fermentation technique.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Red Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=800&auto=format&fit=crop" alt="Red Wine in glass" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">Red</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">Red Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Made with dark grape skins left during fermentation, adding rich color, tannins, and structural depth. Ranges from light (Pinot Noir) to full-bodied (Cabernet Sauvignon).</p>
+        </div>
+      </div>
+
+      <!-- White Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop" alt="White Wine bottle and glass" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">White</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">White Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Pressed prior to fermentation to remove skins. Typically crisp and fresh with vibrant acidity. Ranges from mineral (Sauvignon Blanc) to rich and buttery (oaked Chardonnay).</p>
+        </div>
+      </div>
+
+      <!-- Rosé Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1558001373-7b9fcc986b20?q=80&w=800&auto=format&fit=crop" alt="Rosé Wine bottle" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">Rosé</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">Rosé Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Created from red grapes with brief skin contact (maceration), yielding an elegant pink hue. Expresses delicate strawberry, citrus, and floral notes with a dry finish.</p>
+        </div>
+      </div>
+
+      <!-- Sparkling Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1594488507255-7033580a9762?q=80&w=800&auto=format&fit=crop" alt="Sparkling Wine Champagne" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">Sparkling</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">Sparkling Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Effervescent wines with trapped carbon dioxide from secondary fermentation. Includes Champagne, Cava, Prosecco, and Crémant, each defined by regional rules.</p>
+        </div>
+      </div>
+
+      <!-- Dessert Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1569919659476-f0852f6834b7?q=80&w=800&auto=format&fit=crop" alt="Dessert Wine Pouring" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">Sweet</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">Dessert Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Luscious wines crafted from late-harvest, ice-frozen, or botrytised ('noble rot') grapes rich in natural sugars. Classic examples include Sauternes, Tokaji, and Ice Wine.</p>
+        </div>
+      </div>
+
+      <!-- Fortified Wine Card -->
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=800&auto=format&fit=crop" alt="Fortified Port Wine" loading="lazy">
+        </div>
+        <div class="card-content">
+          <span class="tag mb-2">Fortified</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mb-2">Fortified Wine</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Neutral grape spirits are added during or after fermentation to boost alcohol levels (17–22% ABV). Includes Port, Sherry, Madeira, and Marsala.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KEY GRAPES -->
+  <section id="grapes">
+    <div class="mb-6">
+      <h2>Key Grapes</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Filter by variety style to explore the flavor profile and world-renowned regions for top grapes.</p>
+      
+      <div class="flex gap-2 mt-4" id="filters">
+        <button class="filter-btn active" data-f="all">All Varieties</button>
+        <button class="filter-btn" data-f="red">Red Grapes</button>
+        <button class="filter-btn" data-f="white">White Grapes</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="grapeGrid">
+      <!-- Dynamic cards rendered by JS -->
+    </div>
+  </section>
+
+  <!-- MAJOR REGIONS -->
+  <section id="regions">
+    <div class="mb-6">
+      <h2>Major Regions</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Explore the world's premier winemaking terroirs known for signature styles and distinctive climates.</p>
+    </div>
+
+    <!-- Featured Region Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="region-card">
+        <img src="https://images.unsplash.com/photo-1568283096533-0dd839c36267?q=80&w=800&auto=format&fit=crop" alt="Bordeaux Vineyard" loading="lazy">
+        <div class="region-overlay">
+          <span class="text-xs uppercase font-sans tracking-widest text-[var(--accent2)]">France</span>
+          <h3 class="text-lg font-bold">Bordeaux</h3>
+          <p class="text-xs text-gray-300">Cabernet &amp; Merlot blends</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img src="https://images.unsplash.com/photo-1528823872057-9c018a7a70b3?q=80&w=800&auto=format&fit=crop" alt="Tuscany Hills" loading="lazy">
+        <div class="region-overlay">
+          <span class="text-xs uppercase font-sans tracking-widest text-[var(--accent2)]">Italy</span>
+          <h3 class="text-lg font-bold">Tuscany</h3>
+          <p class="text-xs text-gray-300">Sangiovese, Chianti, Brunello</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=800&auto=format&fit=crop" alt="Napa Valley Vineyard" loading="lazy">
+        <div class="region-overlay">
+          <span class="text-xs uppercase font-sans tracking-widest text-[var(--accent2)]">USA</span>
+          <h3 class="text-lg font-bold">Napa Valley</h3>
+          <p class="text-xs text-gray-300">Bold Cabernet Sauvignon</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" alt="Marlborough New Zealand" loading="lazy">
+        <div class="region-overlay">
+          <span class="text-xs uppercase font-sans tracking-widest text-[var(--accent2)]">New Zealand</span>
+          <h3 class="text-lg font-bold">Marlborough</h3>
+          <p class="text-xs text-gray-300">Vibrant Sauvignon Blanc</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrapper scrollbar-none">
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Country</th>
+              <th>Renowned For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="font-bold text-[var(--accent)]">Bordeaux</td><td>France</td><td>Cabernet Sauvignon &amp; Merlot blends, Sauternes</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Burgundy</td><td>France</td><td>Pinot Noir and Chardonnay, single-vineyard terroirs</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Champagne</td><td>France</td><td>Traditional-method sparkling wine</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Rhône Valley</td><td>France</td><td>Syrah, Grenache, Châteauneuf-du-Pape</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Tuscany</td><td>Italy</td><td>Sangiovese: Chianti Classico, Brunello di Montalcino</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Piedmont</td><td>Italy</td><td>Nebbiolo: Barolo and Barbaresco</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Rioja</td><td>Spain</td><td>Tempranillo oak-aged wines</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Mosel</td><td>Germany</td><td>Riesling from steep slate riverbank slopes</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Napa Valley</td><td>USA</td><td>Powerful Cabernet Sauvignon, Oaked Chardonnay</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Mendoza</td><td>Argentina</td><td>High-altitude Malbec</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Barossa Valley</td><td>Australia</td><td>Rich, full Shiraz from old vines</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Marlborough</td><td>New Zealand</td><td>Pungent, aromatic Sauvignon Blanc</td></tr>
+            <tr><td class="font-bold text-[var(--accent)]">Stellenbosch</td><td>South Africa</td><td>Chenin Blanc, Pinotage, Cabernet blends</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO TASTE WINE -->
+  <section id="tasting">
+    <div class="mb-6">
+      <h2>How to Taste Wine</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Follow the classic 4-step sommelier sensory evaluation technique.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="step-card flex flex-col">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=600&auto=format&fit=crop" alt="Look step" loading="lazy">
+        </div>
+        <div class="p-5 flex-grow">
+          <span class="text-3xl font-bold font-sans text-[var(--accent2)]">01</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mt-1 mb-2">Look</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Tilt glass against a white backdrop. Color intensity and rim variation reveal grape age and style—reds turn brick-garnet, whites deepen to gold.</p>
+        </div>
+      </div>
+
+      <div class="step-card flex flex-col">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1569919659476-f0852f6834b7?q=80&w=600&auto=format&fit=crop" alt="Swirl and Smell step" loading="lazy">
+        </div>
+        <div class="p-5 flex-grow">
+          <span class="text-3xl font-bold font-sans text-[var(--accent2)]">02</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mt-1 mb-2">Swirl &amp; Smell</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Gently swirl to aerate. Inhale aromas deeply: identify fruit layers, floral notes, spices, oak aging, or earthy undertones.</p>
+        </div>
+      </div>
+
+      <div class="step-card flex flex-col">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop" alt="Sip step" loading="lazy">
+        </div>
+        <div class="p-5 flex-grow">
+          <span class="text-3xl font-bold font-sans text-[var(--accent2)]">03</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mt-1 mb-2">Sip</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Coat your palate. Evaluate structural components: sweetness, tart acidity, drying tannins, alcohol warmth, and overall body.</p>
+        </div>
+      </div>
+
+      <div class="step-card flex flex-col">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=600&auto=format&fit=crop" alt="Finish step" loading="lazy">
+        </div>
+        <div class="p-5 flex-grow">
+          <span class="text-3xl font-bold font-sans text-[var(--accent2)]">04</span>
+          <h3 class="text-xl font-bold text-[var(--accent)] mt-1 mb-2">Finish</h3>
+          <p class="text-sm text-[var(--muted)] leading-relaxed">Observe how long lingering flavors stay on your palate after swallowing. A complex, persistent finish signals exceptional quality.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOD PAIRING -->
+  <section id="pairing">
+    <div class="mb-6">
+      <h2>Food Pairing</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Balance weight with weight, and complement acidity or sweetness with dish flavor components.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=600&auto=format&fit=crop" alt="Goat Cheese Salad" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Sauvignon Blanc</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Goat cheese, fresh green salads, oysters, herb-driven seafood.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=600&auto=format&fit=crop" alt="Roast Chicken Pasta" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Chardonnay</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Roast chicken, creamy fettuccine, butter-poached lobster, pork tenderloin.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop" alt="Asian Cuisine" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Riesling</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Spicy Thai/Vietnamese dishes, Peking duck, roasted pork, cured ham.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?q=80&w=600&auto=format&fit=crop" alt="Duck and Salmon" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Pinot Noir</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Pan-seared salmon, roast duck breast, wild mushroom risotto.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop" alt="Grilled Steak" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Cabernet Sauvignon</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Prime ribeye steak, grilled lamb chops, aged cheddar or Gouda.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop" alt="Fried food charcuterie" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Sparkling</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Crispy fried chicken, salty caviar, oysters, brunch pastries, tapas.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop" alt="Woodfired Pizza" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Sangiovese</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Classic Neapolitan pizza, tomato-based ragù, grilled sausages.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1452195100486-9cc805987862?q=80&w=600&auto=format&fit=crop" alt="Blue Cheese Tart" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-lg">Dessert Wine</h3>
+          <p class="text-sm text-[var(--muted)] mt-1">Roquefort blue cheese, foie gras, lemon tart, fruit pavlova.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVING & STORAGE -->
+  <section id="serving">
+    <div class="mb-6">
+      <h2>Serving &amp; Storage Guidelines</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Temperature control and proper glassware dramatically enhance wine aromas and flavors.</p>
+    </div>
+
+    <!-- Temperature Guide Table -->
+    <div class="table-wrapper mb-8">
+      <table>
+        <thead>
+          <tr>
+            <th>Wine Style</th>
+            <th>Optimal Temperature</th>
+            <th>Serving Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Sparkling &amp; Sweet Whites</strong></td><td class="text-[var(--accent)] font-semibold">6–8 °C (43–46 °F)</td><td>Well chilled; preserves bubbles &amp; freshness.</td></tr>
+          <tr><td><strong>Light Whites &amp; Rosé</strong></td><td class="text-[var(--accent)] font-semibold">8–10 °C (46–50 °F)</td><td>Chilled; brings out vibrant fruit and acidity.</td></tr>
+          <tr><td><strong>Full Whites &amp; Light Reds</strong></td><td class="text-[var(--accent)] font-semibold">10–14 °C (50-[57] °F)</td><td>Slightly chilled; unveils oak &amp; delicate aromas.</td></tr>
+          <tr><td><strong>Medium to Full Reds</strong></td><td class="text-[var(--accent)] font-semibold">15–18 °C (59–64 °F)</td><td>Slightly below room temperature; softens tannin.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Storage Info Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=600&auto=format&fit=crop" alt="Wine Cellar" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-base mb-1">Cellar Storage</h3>
+          <p class="text-xs text-[var(--muted)] leading-relaxed">Store bottles horizontally at a steady 10–15 °C away from light and vibrations to keep corks moist.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=600&auto=format&fit=crop" alt="Decanting Wine" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-base mb-1">Decanting</h3>
+          <p class="text-xs text-[var(--muted)] leading-relaxed">Young, tannic reds benefit from 30–60 minutes of aeration. Older vintage wines require gentle pouring off sediment.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop" alt="Wine Glassware" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-base mb-1">Glassware Selection</h3>
+          <p class="text-xs text-[var(--muted)] leading-relaxed">Tulip-shaped glasses concentrate aromas. Fill one-third full to leave ample space for swirling.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrapper">
+          <img class="card-img" src="https://images.unsplash.com/photo-1558001373-7b9fcc986b20?q=80&w=600&auto=format&fit=crop" alt="Preserving open bottles" loading="lazy">
+        </div>
+        <div class="card-content">
+          <h3 class="font-bold text-[var(--accent)] text-base mb-1">Opened Bottles</h3>
+          <p class="text-xs text-[var(--muted)] leading-relaxed">Re-cork and refrigerate immediately. Whites last 3–5 days, reds 3–5 days, and sparkling 1–3 days with a pressure stopper.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary">
+    <div class="mb-6">
+      <h2>Wine Glossary</h2>
+      <p class="text-[var(--muted)] text-lg max-w-2xl mt-2">Essential terminology for discussing flavor profiles, vinification, and wine quality.</p>
+    </div>
+
+    <div class="bg-[var(--surface)] border border-[var(--line)] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Acidity</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">The tart, mouth-watering freshness that balances fruit and sugar structure.</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Tannin</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">Phenolic compounds from grape skins, seeds, and oak providing a drying, structured mouthfeel.</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Body</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">The tactile weight of wine in the mouth, categorized as light, medium, or full-bodied.</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Terroir</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">The complete natural environment—soil type, climate, elevation, and terrain—shaping a wine's character.</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Appellation</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">A legally defined, protected geographical indication for grape growing (e.g. AOC, DOCG, AVA).</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Vintage</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">The specific calendar year in which the grapes were harvested.</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Brut</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">A dry style of sparkling wine containing very low residual sugar levels (under 12g/L).</dd>
+        </div>
+
+        <div>
+          <dt class="font-bold text-[var(--accent)] text-lg">Corked (TCA)</dt>
+          <dd class="text-sm text-[var(--muted)] mt-0.5">A wine fault caused by 2,4,6-trichloroanisole, giving aromas of damp cardboard and muted fruit flavors.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mt-20 border-t border-[var(--line)] py-10 text-center text-sm text-[var(--muted)]">
+  <div class="max-w-6xl mx-auto px-4">
+    <p class="font-serif text-base mb-2 text-[var(--accent)]">The Ultimate Wine Guide</p>
+    <p>© Please enjoy wine responsibly. Intended for audiences of legal drinking age.</p>
+  </div>
+</footer>
+
+<script>
+// Dynamic Grape Variety Data with Image URLs
+var grapes = [
+  ["Cabernet Sauvignon", "red", "Full body, blackcurrant, cedar, firm tannins.", "Bordeaux, Napa Valley, Coonawarra", "https://images.unsplash.com/photo-1558001373-7b9fcc986b20?q=80&w=600&auto=format&fit=crop"],
+  ["Merlot", "red", "Plush texture, black cherry, plum, velvety finish.", "Bordeaux, Chile, Washington State", "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=600&auto=format&fit=crop"],
+  ["Pinot Noir", "red", "Light-to-medium body, red cherry, clove, earthy complexity.", "Burgundy, Oregon, Central Otago", "https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?q=80&w=600&auto=format&fit=crop"],
+  ["Syrah / Shiraz", "red", "Bold dark berries, black pepper, smoke, cocoa.", "Rhône Valley, Barossa Valley, Hawke's Bay", "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop"],
+  ["Tempranillo", "red", "Cherry, dried fig, tobacco, oak vanilla notes.", "Rioja, Ribera del Duero", "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=600&auto=format&fit=crop"],
+  ["Sangiovese", "red", "Tart red cherry, roasted pepper, high acidity, savory herbs.", "Tuscany (Chianti, Brunello)", "https://images.unsplash.com/photo-1568283096533-0dd839c36267?q=80&w=600&auto=format&fit=crop"],
+  ["Malbec", "red", "Plum, dark chocolate, violet aromas, smooth tannins.", "Mendoza, Cahors", "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=600&auto=format&fit=crop"],
+  ["Chardonnay", "white", "Lean and mineral (Chablis) to lush, buttery oak notes (California).", "Burgundy, Napa, Margaret River", "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop"],
+  ["Sauvignon Blanc", "white", "Zesty, lemongrass, passionfruit, crisp acidity.", "Marlborough, Loire Valley", "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=600&auto=format&fit=crop"],
+  ["Riesling", "white", "Highly aromatic, lime, white peach, petroleum minerals; dry to sweet.", "Mosel, Alsace, Clare Valley", "https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=600&auto=format&fit=crop"],
+  ["Pinot Gris / Grigio", "white", "Crisp green apple and citrus (Italy) to honeyed peach (Alsace).", "Veneto, Alsace, Oregon", "https://images.unsplash.com/photo-1569919659476-f0852f6834b7?q=80&w=600&auto=format&fit=crop"],
+  ["Chenin Blanc", "white", "Versatile profile: floral, quince, honey, dry to luscious sweet.", "Loire Valley, South Africa", "https://images.unsplash.com/photo-1594488507255-7033580a9762?q=80&w=600&auto=format&fit=crop"]
+];
+
+var grid = document.getElementById("grapeGrid");
+
+function renderGrapes(filter) {
+  grid.innerHTML = "";
+  grapes.forEach(function(g) {
+    if (filter !== "all" && g[1] !== filter) return;
+    
+    var card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-img-wrapper">
+        <img class="card-img" src="${g[4]}" alt="${g[0]} grapes" loading="lazy">
+      </div>
+      <div class="card-content">
+        <span class="tag mb-2">${g[1]}</span>
+        <h3 class="text-xl font-bold text-[var(--accent)] mb-1">${g[0]}</h3>
+        <p class="text-sm text-[var(--muted)] leading-relaxed mb-3">${g[2]}</p>
+        <div class="mt-auto pt-2 border-t border-[var(--line)] text-xs text-[var(--muted)] font-sans">
+          <strong class="text-[var(--text)]">Classic Regions:</strong> ${g[3]}
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Filter button handling
+document.getElementById("filters").addEventListener("click", function(e) {
+  var b = e.target.closest("button");
+  if (!b) return;
+  this.querySelectorAll("button").forEach(function(btn) { btn.classList.remove("active"); });
+  b.classList.add("active");
+  renderGrapes(b.dataset.f);
+});
+
+// Theme switcher handling
+var themeToggleBtn = document.getElementById("themeToggle");
+var themeIcon = document.getElementById("themeIcon");
+
+function updateThemeIcon() {
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark" || 
+    (!document.documentElement.getAttribute("data-theme") && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  themeIcon.textContent = isDark ? "☀️" : "🌙";
+}
+
+themeToggleBtn.addEventListener("click", function() {
+  var currentTheme = document.documentElement.getAttribute("data-theme");
+  var newTheme = currentTheme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", newTheme);
+  updateThemeIcon();
+});
+
+// Initial render
+renderGrapes("all");
+updateThemeIcon();
+</script>
+
+</body>
+</html>
