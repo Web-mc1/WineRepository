@@ -1,0 +1,12 @@
+[
+  {
+    "name": "grapes-red",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/example-red-grapes.jpg",
+    "credit": "Photographer name, CC BY-SA 4.0, via Wikimedia Commons"
+  },
+  {
+    "name": "vineyard",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/example-vineyard.jpg",
+    "credit": "Photographer name, CC BY 4.0, via Wikimedia Commons"
+  }
+]
