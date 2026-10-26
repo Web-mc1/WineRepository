@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Wine Guide</title>
+<style>
+:root{--bg:#faf6f1;--surface:#fff;--text:#2a1a1f;--muted:#6d5a60;--accent:#7b1e3a;--accent2:#c9a24b;--line:#e6dcd3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1013;--surface:#261a1e;--text:#f3e9e4;--muted:#b9a5a9;--accent:#e0768f;--accent2:#d9b45c;--line:#3a2a30;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1a1013;--surface:#261a1e;--text:#f3e9e4;--muted:#b9a5a9;--accent:#e0768f;--accent2:#d9b45c;--line:#3a2a30;color-scheme:dark}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Georgia,"Times New Roman",serif}
+h1,h2,h3{font-weight:600;line-height:1.2;margin:0 0 .5em}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:1.1rem;padding:.8rem 1.2rem;overflow-x:auto;white-space:nowrap;font:600 .85rem system-ui,sans-serif}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--accent)}
+header.hero{text-align:center;padding:4.5rem 1.2rem 3.5rem;background:radial-gradient(ellipse at top,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%)}
+.hero h1{font-size:clamp(2.2rem,7vw,4rem);color:var(--accent)}
+.hero p{max-width:34rem;margin:0 auto;color:var(--muted);font-size:1.15rem}
+main{max-width:62rem;margin:0 auto;padding:0 1.2rem 4rem}
+section{padding:2.8rem 0 .5rem}
+section>h2{font-size:1.9rem;border-bottom:2px solid var(--accent2);display:inline-block;padding-bottom:.2rem}
+.lead{color:var(--muted);max-width:42rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin-top:1.2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem}
+.card h3{font-size:1.1rem;color:var(--accent)}
+.card p{margin:.3rem 0;font-size:.95rem}
+.tag{display:inline-block;font:600 .7rem system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;padding:.15rem .5rem;border-radius:99px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent);margin-bottom:.4rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0 0}
+.filters button{font:600 .85rem system-ui,sans-serif;padding:.4rem .9rem;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.filters button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+table{width:100%;border-collapse:collapse;margin-top:1rem;background:var(--surface);border-radius:12px;overflow:hidden;font-size:.95rem}
+th,td{text-align:left;padding:.65rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .8rem system-ui,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.scroll{overflow-x:auto}
+.steps{counter-reset:s;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.2rem}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem}
+.steps li::before{content:counter(s);display:block;font-size:1.8rem;color:var(--accent2);font-weight:700}
+dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.6rem 2rem;margin-top:1.2rem}
+dt{font-weight:700;color:var(--accent)}
+dd{margin:0 0 .6rem;color:var(--muted);font-size:.95rem}
+footer{text-align:center;padding:2rem 1rem;color:var(--muted);font:.85rem system-ui,sans-serif;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<nav>
+<a href="#types">Types</a><a href="#grapes">Grapes</a><a href="#regions">Regions</a><a href="#tasting">Tasting</a><a href="#pairing">Pairing</a><a href="#serving">Serving &amp; storage</a><a href="#glossary">Glossary</a>
+</nav>
+<header class="hero">
+<h1>The Wine Guide</h1>
+<p>Everything you need to know about wine: styles, grapes, regions, tasting, food pairing, serving and the words people use.</p>
+</header>
+<main>
+
+<section id="types">
+<h2>Types of wine</h2>
+<p class="lead">Wine is fermented grape juice. Colour, sweetness and bubbles come from how the grapes are handled.</p>
+<div class="grid">
+<div class="card"><span class="tag">Red</span><h3>Red wine</h3><p>Made with the dark grape skins left in during fermentation, which adds colour, tannin and structure. Ranges from light (Pinot Noir) to full (Cabernet Sauvignon).</p></div>
+<div class="card"><span class="tag">White</span><h3>White wine</h3><p>Usually pressed before fermentation, so skins are removed. Typically fresher, with higher perceived acidity. Ranges from crisp (Sauvignon Blanc) to rich (oaked Chardonnay).</p></div>
+<div class="card"><span class="tag">Rosé</span><h3>Rosé</h3><p>Red grapes with brief skin contact, giving a pink colour. Dry, fruity and refreshing in most cases.</p></div>
+<div class="card"><span class="tag">Sparkling</span><h3>Sparkling</h3><p>Carbon dioxide trapped in the bottle. Champagne, Cava, Prosecco and Crémant differ by region and method.</p></div>
+<div class="card"><span class="tag">Sweet</span><h3>Dessert wine</h3><p>Sugar is left in the wine, often from late harvest, frozen or botrytised grapes. Examples: Sauternes, Ice wine, Tokaji.</p></div>
+<div class="card"><span class="tag">Fortified</span><h3>Fortified</h3><p>Spirit is added to raise alcohol (about 17–22%). Examples: Port, Sherry, Madeira, Marsala.</p></div>
+</div>
+</section>
+
+<section id="grapes">
+<h2>Key grapes</h2>
+<p class="lead">Filter by style to compare the world’s most important varieties.</p>
+<div class="filters" id="filters">
+<button class="on" data-f="all">All</button><button data-f="red">Red</button><button data-f="white">White</button>
+</div>
+<div class="grid" id="grapeGrid"></div>
+</section>
+
+<section id="regions">
+<h2>Major regions</h2>
+<div class="scroll"><table>
+<thead><tr><th>Region</th><th>Country</th><th>Known for</th></tr></thead>
+<tbody>
+<tr><td>Bordeaux</td><td>France</td><td>Cabernet and Merlot blends, Sauternes</td></tr>
+<tr><td>Burgundy</td><td>France</td><td>Pinot Noir and Chardonnay, vineyard-specific wines</td></tr>
+<tr><td>Champagne</td><td>France</td><td>Traditional-method sparkling wine</td></tr>
+<tr><td>Rhône Valley</td><td>France</td><td>Syrah, Grenache, Châteauneuf-du-Pape</td></tr>
+<tr><td>Tuscany</td><td>Italy</td><td>Sangiovese: Chianti, Brunello di Montalcino</td></tr>
+<tr><td>Piedmont</td><td>Italy</td><td>Nebbiolo: Barolo and Barbaresco</td></tr>
+<tr><td>Rioja</td><td>Spain</td><td>Tempranillo aged in oak</td></tr>
+<tr><td>Mosel</td><td>Germany</td><td>Riesling from steep slate slopes</td></tr>
+<tr><td>Napa Valley</td><td>USA</td><td>Powerful Cabernet Sauvignon</td></tr>
+<tr><td>Mendoza</td><td>Argentina</td><td>High-altitude Malbec</td></tr>
+<tr><td>Barossa Valley</td><td>Australia</td><td>Rich Shiraz, old vines</td></tr>
+<tr><td>Marlborough</td><td>New Zealand</td><td>Vibrant Sauvignon Blanc</td></tr>
+<tr><td>Stellenbosch</td><td>South Africa</td><td>Chenin Blanc, Pinotage, Cabernet blends</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="tasting">
+<h2>How to taste wine</h2>
+<ol class="steps">
+<li><h3>Look</h3><p>Tilt the glass against white. Colour hints at age and grape. Reds fade to brick, whites deepen to gold.</p></li>
+<li><h3>Swirl &amp; smell</h3><p>Swirl to release aromas. Note fruit, flowers, spice, oak or earth. Smell is most of what we call taste.</p></li>
+<li><h3>Sip</h3><p>Let it coat your mouth. Judge sweetness, acidity, tannin, alcohol (warmth) and body.</p></li>
+<li><h3>Finish</h3><p>How long do the flavours last after swallowing? A long, pleasant finish usually signals quality.</p></li>
+</ol>
+</section>
+
+<section id="pairing">
+<h2>Food pairing</h2>
+<p class="lead">Match weight with weight, and let acidity and sweetness balance the dish.</p>
+<div class="grid">
+<div class="card"><h3>Sauvignon Blanc</h3><p>Goat cheese, salads, seafood, herbs.</p></div>
+<div class="card"><h3>Chardonnay</h3><p>Roast chicken, creamy pasta, lobster (oaked); oysters (unoaked).</p></div>
+<div class="card"><h3>Riesling</h3><p>Spicy Asian dishes, pork, off-dry with heat.</p></div>
+<div class="card"><h3>Pinot Noir</h3><p>Salmon, duck, mushrooms, roast chicken.</p></div>
+<div class="card"><h3>Cabernet Sauvignon</h3><p>Steak, lamb, aged hard cheese.</p></div>
+<div class="card"><h3>Sparkling</h3><p>Fried food, salty snacks, brunch, oysters.</p></div>
+<div class="card"><h3>Sangiovese</h3><p>Tomato sauces, pizza, grilled meats.</p></div>
+<div class="card"><h3>Dessert wine</h3><p>Blue cheese, foie gras, fruit tarts.</p></div>
+</div>
+</section>
+
+<section id="serving">
+<h2>Serving &amp; storage</h2>
+<div class="scroll"><table>
+<thead><tr><th>Style</th><th>Serve at</th></tr></thead>
+<tbody>
+<tr><td>Sparkling, sweet whites</td><td>6–8 °C (43–46 °F)</td></tr>
+<tr><td>Light whites, rosé</td><td>8–10 °C (46–50 °F)</td></tr>
+<tr><td>Full whites</td><td>10–12 °C (50–54 °F)</td></tr>
+<tr><td>Light reds</td><td>12–14 °C (54–57 °F)</td></tr>
+<tr><td>Full reds</td><td>15–18 °C (59–64 °F)</td></tr>
+</tbody></table></div>
+<div class="grid">
+<div class="card"><h3>Storing</h3><p>Keep bottles away from light and heat, at a steady 10–15 °C. Lay cork-sealed bottles on their side so the cork stays moist.</p></div>
+<div class="card"><h3>Opened bottles</h3><p>Reseal and refrigerate. Whites and rosé last 3–5 days, reds 3–5 days, sparkling 1–3 days with a proper stopper.</p></div>
+<div class="card"><h3>Decanting</h3><p>Young, tannic reds benefit from an hour or more of air. Old wines need only a gentle pour off the sediment.</p></div>
+<div class="card"><h3>Glassware</h3><p>Use a tulip-shaped glass and fill about one third, leaving room to swirl.</p></div>
+</div>
+</section>
+
+<section id="glossary">
+<h2>Glossary</h2>
+<dl>
+<dt>Acidity</dt><dd>The tart, mouth-watering freshness in wine.</dd>
+<dt>Tannin</dt><dd>Compounds from skins, seeds and oak that create a drying, grippy feel.</dd>
+<dt>Body</dt><dd>The weight of wine in the mouth: light, medium or full.</dd>
+<dt>Dry / Off-dry / Sweet</dt><dd>Describes residual sugar, from almost none to noticeably sweet.</dd>
+<dt>Vintage</dt><dd>The year the grapes were harvested.</dd>
+<dt>Terroir</dt><dd>How soil, climate and place shape a wine’s character.</dd>
+<dt>Appellation</dt><dd>A legally defined wine region with its own rules, e.g. AOC, DOC, AVA.</dd>
+<dt>Brut</dt><dd>A dry style of sparkling wine.</dd>
+<dt>Corked</dt><dd>Spoiled by TCA, giving a damp-cardboard smell. Not the same as bits of cork floating in the glass.</dd>
+<dt>Sulfites</dt><dd>Preservatives present in nearly all wine, naturally and by addition.</dd>
+<dt>ABV</dt><dd>Alcohol by volume. Table wine is usually 11–15%.</dd>
+<dt>Sommelier</dt><dd>A trained wine professional, often in restaurants.</dd>
+</dl>
+</section>
+</main>
+<footer>Drink responsibly. Wine is for adults of legal drinking age.</footer>
+
+<script>
+var grapes=[
+["Cabernet Sauvignon","red","Full body, blackcurrant, firm tannin. Bordeaux, Napa, Coonawarra."],
+["Merlot","red","Plush, plum and cherry, softer tannin. Bordeaux, Chile, California."],
+["Pinot Noir","red","Light, silky, red berries and earth. Burgundy, Oregon, Central Otago."],
+["Syrah / Shiraz","red","Dark fruit, pepper, smoke. Rhône, Barossa, Hawke’s Bay."],
+["Tempranillo","red","Cherry, leather, vanilla from oak. Rioja, Ribera del Duero."],
+["Sangiovese","red","Sour cherry, high acidity, savoury. Chianti, Brunello."],
+["Malbec","red","Plum, blackberry, velvety. Mendoza, Cahors."],
+["Chardonnay","white","From lean and mineral (Chablis) to buttery and oaked (California)."],
+["Sauvignon Blanc","white","Zesty, grassy, passionfruit. Marlborough, Loire."],
+["Riesling","white","Aromatic, high acid, dry to sweet. Mosel, Alsace, Clare Valley."],
+["Pinot Gris / Grigio","white","Pear and apple, from light (Italy) to rich (Alsace)."],
+["Chenin Blanc","white","Versatile: dry, sweet or sparkling. Loire, South Africa."]
+];
+var grid=document.getElementById("grapeGrid");
+function render(f){
+  grid.innerHTML="";
+  grapes.forEach(function(g){
+    if(f!=="all"&&g[1]!==f)return;
+    var d=document.createElement("div");d.className="card";
+    d.innerHTML='<span class="tag">'+g[1]+'</span><h3>'+g[0]+'</h3><p>'+g[2]+'</p>';
+    grid.appendChild(d);
+  });
+}
+document.getElementById("filters").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  this.querySelectorAll("button").forEach(function(x){x.classList.remove("on")});
+  b.classList.add("on");render(b.dataset.f);
+});
+render("all");
+</script>
+</body>
+</html>
